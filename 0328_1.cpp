@@ -19,14 +19,14 @@ int main(){
 	n = 0;
 	p = 1;
 	for(j = foo[i].size - 1; foo[i][j] != 'o' ; --j ){
-	  n = p*n + (foo[i][j] - '0' ) * p;
+	  n = n + (foo[i][j] - '0' ) * p;
 	  p = 8*p;
 	} 
       }else if(foo[i][1] == 'b'){
 	n = 0;
 	p = 1;
 	for(j = foo[i].size - 1; foo[i][j] != 'b' ; --j ){
-	  n = p*n + (foo[i][j] - '0' ) * p;
+	  n = n + (foo[i][j] - '0' ) * p;
 	  p = 2*p;
 	} 
       }
