@@ -1,0 +1,135 @@
+#include<iostream>
+#include<cstring>
+
+
+typedef struct Polynomial
+{
+	int con;
+	int pow;
+	Polynomial *next;
+}POL;
+
+
+void add_Node(Polynomial *cu, int con, int pow)
+{
+	while(true)
+	{
+		if(cu->next == NULL)
+		{
+			cu->next = new Polynomial;
+			cu = cu->next;
+			cu->con = con;
+			cu->pow = pow;
+			cu->next = NULL;
+			break;
+		}else
+		{
+			cu= cu->next;
+		}
+	}
+}
+
+void check_Node(Polynomial *cu)
+{
+	while(true)
+	{
+		cu = cu->next;
+		
+		if(cu != NULL)
+		{
+			std::cout<<cu->con<<"x^"<<cu->pow;
+			if(cu->next !=NULL)
+				std::cout<<"+";
+		}else
+		{
+			std::cout<<std::endl;
+			break;
+		}
+	}
+}
+
+void add_up_Node(Polynomial *one, Polynomial *two, Polynomial *three)
+{
+	one   = one->next;
+	two   = two->next;
+	
+	while(true)
+	{
+		if(one == NULL and two == NULL)
+		{
+			three->next = NULL;
+			break;
+		}
+		
+		three->next = new Polynomial;
+		three = three->next;
+		
+		if(one == NULL)
+		{
+			three->con = two->con;
+			three->pow = two->pow;
+			two = two->next;
+			
+		}
+		else if(two == NULL)
+		{
+			three->con = one->con;
+			three->pow = one->pow;
+			one = one->next;
+		}
+		else
+		{
+			if(one->pow > two->pow)
+			{
+				three->con = one->con;
+				three->pow = one->pow;
+				one = one->next;
+			}
+			else if(one->pow == two->pow)
+			{
+				three->con = (one->con+two->con);
+				three->pow = one->pow;
+		
+				one = one->next;
+				two = two->next;
+			}
+			else if(one->pow < two->pow)
+			{
+				three->con = two->con;
+				three->pow = two->pow;
+				two = two->next;
+			}
+		}
+
+	}
+}
+
+int main()
+{
+	POL *A,*B,*C;
+	
+	A = new Polynomial;
+	B = new Polynomial;
+	C = new Polynomial;
+	
+	A->next = NULL;
+	B->next = NULL;
+	C->next = NULL;
+	
+	add_Node(A,  5, 4); 
+	add_Node(A,  6, 3);
+	add_Node(A,  6, 2);
+	
+	add_Node(B,  9, 5);
+	add_Node(B,  3, 3);
+	add_Node(B,  4, 1);
+	add_Node(B,  2, 0);
+	
+	check_Node(A);
+	check_Node(B);
+	add_up_Node(A, B, C);
+	
+	check_Node(C);
+
+	return 0;
+}
